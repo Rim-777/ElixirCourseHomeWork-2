@@ -20,7 +20,9 @@ defmodule EchoPingPong do
   end
 
   @impl GenServer
-  def handle_call(:ping, _from, state) do
-    {:reply, {:pong, node()}, state}
+  def handle_call(:ping, {from_pid, _}, state) do
+    response = {:pong, node()}
+    send(from_pid, response)
+    {:reply, response, state}
   end
 end

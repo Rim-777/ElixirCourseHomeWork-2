@@ -3,8 +3,9 @@ defmodule EchoPingPongTest do
   doctest EchoPingPong
 
   test "pings a server" do
-    {:ok, _pid} = Node.start(:test@localhost)
     {:ok, pid} = EchoPingPong.start_link()
-    assert EchoPingPong.call(pid) == {:pong, :test@localhost}
+    response = {:pong, :test@localhost}
+    assert EchoPingPong.call(pid) == response
+    assert_receive response
   end
 end

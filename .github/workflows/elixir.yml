@@ -27,6 +27,8 @@ jobs:
           path: deps
           key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
           restore-keys: ${{ runner.os }}-mix-
+      - name: Start distribution
+        run: epmd -daemon
       - name: Install dependencies
         run: mix deps.get
       - name: Run tests
